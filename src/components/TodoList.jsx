@@ -9,7 +9,12 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
-   return <TodoListBlock>TodoList</TodoListBlock>
+   return (
+   <TodoListBlock>
+      <TodoItem text="오늘의 할일" done={true} />
+      <TodoItem text="오늘의 할일" done={false} />
+   </TodoListBlock>
+   )
 }
 
 export default TodoList;
