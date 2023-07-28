@@ -3,8 +3,8 @@
 
 .title{
     display: flex;
-    background-color: #81C147;
-    border: 2px none, #81C147;
+    background-color: white;
+    border: 2px none, white;
     margin: 6vw;
     height: 10vh;
     border-radius: 15px;
@@ -12,7 +12,7 @@
 }
 
 .postBox{
-    background-color: #81C147;
+    background-color: white;
     border: 2px none;
     margin: 6vw;
     height: 75vh;
@@ -28,8 +28,8 @@
 }
 
 .postList{
-    margin: 10px;
-    height: 51vw;
+    margin: 5vh;
+    height: 40vh;
     border: 1px solid black;
     border-radius: 15px;
 }
@@ -40,5 +40,5 @@
     height: 10vh;
     border-radius: 15px;
     box-shadow: 0px 0px 20px gray;
-    background-color: #81C147;
+    background-color: white;
 }
