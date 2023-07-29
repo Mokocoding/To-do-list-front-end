@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styled from 'styled-components'
 
-const postBox = styled.div//eslint-disable-line no-unused-vars
-`
 
-    background-color: white;
-    border: 2px none;
-    margin: 6vw;
-    height: 75vh;
-    border-radius: 15px;
-    box-shadow: 0px 0px 20px gray;
-
-`;
 
 
 
