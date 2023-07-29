@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components'
 
-function Users() {
+const postBox = styled.div//eslint-disable-line no-unused-vars
+`
+
+    background-color: white;
+    border: 2px none;
+    margin: 6vw;
+    height: 75vh;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px gray;
+
+`;
+
+
+
+
+function MainPost() {
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,16 +48,20 @@ function Users() {
   if (!users) return null;
   return (
     <>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.username} ({user.name})
-          </li>
-        ))}
-      </ul>
-      <button onClick={fetchUsers}>다시 불러오기</button>
+      <postBox>
+        <ul>
+          {users.map(user => (
+            <li key={user.id}>
+              {user.username} ({user.name})
+            </li>
+          ))}
+        </ul>
+        <button onClick={fetchUsers}>다시 불러오기</button>
+      </postBox>
     </>
+
+
   );
 }
 
-export default Users;
+export default MainPost;

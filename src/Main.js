@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom"
+import MainPost from "./components/MainPost"
+import MainHead from "./components/MainHead";
 
 export default function Main() {
   return (
     <div>
-      <h1>하이</h1>
-      <Link to="/post">다음 페이지</Link>
+      <MainHead />
+      <MainPost />
+      <Link to="/post">Todo쓰러가기</Link>
     </div>
   );
 }
