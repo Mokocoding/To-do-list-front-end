@@ -46,7 +46,7 @@ const CheckBox = styled.div`
 
 const Text = styled.div`
    flex: 1;
-   front-size:21px;
+   font-size:21px;
    color: #495057;
    border-radius: 16px;
    border: 1px solid #ced4da;

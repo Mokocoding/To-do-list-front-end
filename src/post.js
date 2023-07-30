@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import TodoListBox from "./components/TodoListBox";
 import TodoHead from "./components/TodoHead";
 import TodoList from "./components/TodoList";
+import TodoAdd from "./components/TodoAdd";
 
 const GlobalStyle = createGlobalStyle`
    body {
@@ -18,6 +19,7 @@ function Post() {
          <TodoListBox>
             <TodoHead />
             <TodoList />
+            <TodoAdd />
          </TodoListBox>
       </>
    );
