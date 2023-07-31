@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import TodoListBox from "./components/TodoListBox";
 import TodoHead from "./components/TodoHead";
 import TodoList from "./components/TodoList";
+import { Link } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
    body {
@@ -19,6 +20,7 @@ function Post() {
             <TodoHead />
             <TodoList />
          </TodoListBox>
+         <Link to ="/">메인페이지이동</Link> 
       </>
    );
 }
