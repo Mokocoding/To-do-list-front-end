@@ -49,10 +49,10 @@ const CircleButton = styled.button`
 
 `;
 
-const InsertFormPositioner = styled.div`
+const InsertFormPositioner = styled.div` // input 칸을 아래로 팝업되게 설정하는 부분
    width: 100%;
    bottom: 0;
-   left: 0;
+   right: 0;
    position: absolute;
 `;
 
@@ -63,8 +63,7 @@ const InsertForm = styled.form`
    padding-right: 32px;
    padding-bottom: 72px;
 
-   border-bottom-left-radius: 16px;
-   border-bottom-right-radius: 16px;
+   border-radius: 16px;
    border-top: 1px solid #e9ecef;
 `;
 
