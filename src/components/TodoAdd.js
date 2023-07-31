@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import { func } from 'prop-types';
 
 const CircleButton = styled.button`
    background: #c5cdcb; //일반 배경색
@@ -77,23 +78,53 @@ const Input = styled.input`
    box-sizing: border-box;
 `;
 
+const AddButton = styled.button`
+   background: #a5a0a0;
+   color: white;
+   padding: 8px 16px;
+   font-size: 16px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+`;
 
-function TodoAdd() {
+
+function TodoAdd( {onAddPost} ) {
    const [open, setOpen] = useState(false); // 초기값은 할 일을 수행하지 않았을 때.
-
-   function onToggle() {
+   const [task, setTask] = useState("");
+   // console.log(onAddPost);
+   const onToggle= () =>  {
       setOpen(!open); // open의 상태를 정의하여 Toggle 기능의 상태를 변화시킴.
       // open이 ture면 !open은 false이므로 버튼을 클릭할 때마다 
       // 인풋(할 일을 적는 공간)탭을 팝업시키거나 내릴 수 있게 한다.
       // !open을 그냥 open이라 했을 때는 기능이 잘 안됐다. 이유가 뭘까
-
+      // = 초기값을 false 즉 닫혀있는 것으로 했으니 !open으로 해야 열리지..
    }
+   const handleChange = (event) => {
+      setTask(event.target.value);
+   };
+
+   const handleFormSubmit = (event) => {
+      event.preventDefault();
+      if (task.trim() !== "") { // 요 부분은 구글링해서 엔터를 눌렀을때 게시글 생성
+            // 하는 방법을 찾아보았을 때 나온 코드를 참고하였는데, trim() 메서드는
+            // 문자열에서만 사용가능하며, 작성한 text에 좌우 공백을 지워주는 역할을 한다고 합니다.
+         onAddPost(task);
+         setTask("");
+      }
+   }
+   
    return (
       <>
          {open && (
             <InsertFormPositioner>
-               <InsertForm>
-                  <Input placeholder="할 일을 입력 후 Enter를 누르면 추가가 완료됩니다." />
+               <InsertForm onSubmit={handleFormSubmit}>
+                  <Input 
+                     placeholder="할 일을 입력 후 '추가하기'버튼을 누르면 추가가 완료됩니다." 
+                     value={task}
+                     onChange={handleChange}
+                  />
+                  <AddButton type="submit">추가하기</AddButton>
                </InsertForm>
             </InsertFormPositioner>
          )}
