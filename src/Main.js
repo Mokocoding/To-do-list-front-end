@@ -16,6 +16,7 @@ const StyledLink = styled(Link)`
   text-Decoration: none;
   flex-direction: column;
   justify-content: space-around
+ 
 `;
 
 

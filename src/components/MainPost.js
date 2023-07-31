@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
-
-
-
-
 function MainPost() {
-  const [users, setUsers] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchUsers = async () => {
+  const fetchPosts = async () => {
     try {
-      // 요청이 시작 할 때에는 error 와 users 를 초기화하고
       setError(null);
-      setUsers(null);
-      // loading 상태를 true 로 바꿉니다.
+      setPosts([]);
       setLoading(true);
-      const response = await axios.get(
-        'https://jsonplaceholder.typicode.com/users'
-      );
-      setUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
+
+      const response = await axios.get('http://6fbe-121-88-197-60.ngrok-free.app/api/posts', {
+        headers: {
+          'Content-type': 'application/json; charset=utf-8',
+          "ngrok-skip-browser-warning": true
+        }
+      });
+
+      setPosts(response.data);
     } catch (e) {
       setError(e);
     }
@@ -29,27 +27,26 @@ function MainPost() {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchPosts();
   }, []);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
-  if (!users) return null;
+  if (posts.length === 0) return <div>데이터가 없습니다.</div>;
+
   return (
-    <>
-      <postBox>
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              {user.username} ({user.name})
-            </li>
-          ))}
-        </ul>
-        <button onClick={fetchUsers}>다시 불러오기</button>
-      </postBox>
-    </>
-
-
+    <div>
+      <h1>게시물 목록</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <h2>{post.description}</h2>
+            <p>Target Date: {post.target_date}</p>
+            <p>Created At: {post.created_at}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

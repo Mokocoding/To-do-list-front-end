@@ -11,6 +11,8 @@ const Head = styled.div`
     box-shadow: 0px 0px 20px gray;
     flex-direction: column;
     justify-content: center;
+    font-size: 2rem;
+    
 
 `;
 
