@@ -1,5 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+
+const MainPostContainer = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-bottom: 10vh;
+`;
+
+const PostList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
+
+const PostItem = styled.li`
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+`;
+
+const PostTitle = styled.h2`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+
+const PostDate = styled.p`
+  color: black;
+  font-size: 1rem;
+`;
 
 function MainPost() {
   const [posts, setPosts] = useState([]);
@@ -12,7 +43,7 @@ function MainPost() {
       setPosts([]);
       setLoading(true);
 
-      const response = await axios.get('http://6fbe-121-88-197-60.ngrok-free.app/api/posts', {
+      const response = await axios.get('https://jsonplaceholder.typicode.com/users', {
         headers: {
           'Content-type': 'application/json; charset=utf-8',
           "ngrok-skip-browser-warning": true
@@ -35,18 +66,18 @@ function MainPost() {
   if (posts.length === 0) return <div>데이터가 없습니다.</div>;
 
   return (
-    <div>
-      <h1>게시물 목록</h1>
-      <ul>
+    <MainPostContainer>
+      <h3>TodoList</h3>
+      <PostList>
         {posts.map((post) => (
-          <li key={post.id}>
-            <h2>{post.description}</h2>
-            <p>Target Date: {post.target_date}</p>
-            <p>Created At: {post.created_at}</p>
-          </li>
+          <PostItem key={post.id}>
+            <PostTitle>{post.description}</PostTitle>
+            <PostDate>작성일자: {post.target_date}</PostDate>
+            <PostDate>내용: {post.description}</PostDate>
+          </PostItem>
         ))}
-      </ul>
-    </div>
+      </PostList>
+    </MainPostContainer>
   );
 }
 
