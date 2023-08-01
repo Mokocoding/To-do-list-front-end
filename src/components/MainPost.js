@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
-
 
 const MainPostContainer = styled.div`
   max-width: 600px;
@@ -43,14 +41,20 @@ function MainPost() {
       setPosts([]);
       setLoading(true);
 
-      const response = await axios.get('https://jsonplaceholder.typicode.com/users', {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+        method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=utf-8',
           "ngrok-skip-browser-warning": true
         }
       });
 
-      setPosts(response.data);
+      if (!response.ok) {
+        throw new Error('데이터를 가져오는데 실패.');
+      }
+
+      const data = await response.json(); // JSON 변환
+      setPosts(data);
     } catch (e) {
       setError(e);
     }
@@ -71,9 +75,9 @@ function MainPost() {
       <PostList>
         {posts.map((post) => (
           <PostItem key={post.id}>
-            <PostTitle>{post.description}</PostTitle>
+            <PostTitle>Todo</PostTitle>
             <PostDate>작성일자: {post.target_date}</PostDate>
-            <PostDate>내용: {post.description}</PostDate>
+            <PostDate>내용: {post.decription}</PostDate>
           </PostItem>
         ))}
       </PostList>
