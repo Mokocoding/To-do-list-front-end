@@ -1,34 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-
-const MainPostContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 10px;
-  margin-bottom: 10vh;
-`;
-
-const PostList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const PostItem = styled.li`
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  margin: 10px 0;
-`;
-
-const PostTitle = styled.h2`
-  font-size: 1rem;
-  font-weight: bold;
-`;
-
-const PostDate = styled.p`
-  color: black;
-  font-size: 1rem;
-`;
+import { MainPostContainer, PostList, PostItem, PostTitle, PostDate} from '../styled/MainStyle';
 
 function MainPost() {
   const [posts, setPosts] = useState([]);
@@ -41,11 +12,11 @@ function MainPost() {
       setPosts([]);
       setLoading(true);
 
-      const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+      const response = await fetch('http://3.35.134.247:3000/api/posts', {
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=utf-8',
-          "ngrok-skip-browser-warning": true
+          
         }
       });
 
@@ -66,7 +37,7 @@ function MainPost() {
   }, []);
 
   if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <div>에러 발생</div>;
   if (posts.length === 0) return <div>데이터가 없습니다.</div>;
 
   return (
@@ -76,8 +47,8 @@ function MainPost() {
         {posts.map((post) => (
           <PostItem key={post.id}>
             <PostTitle>Todo</PostTitle>
-            <PostDate>작성일자: {post.target_date}</PostDate>
-            <PostDate>내용: {post.decription}</PostDate>
+            <PostDate>작성일자: {post.target_date.slice(0,10)}</PostDate>
+            <PostDate>내용: {post.description}</PostDate>
           </PostItem>
         ))}
       </PostList>
