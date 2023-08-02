@@ -63,14 +63,21 @@ const Text = styled.div`
 `;
 
 
-function TodoItem({ id, done, description}) { /*객체 구조 분해 = 개체를 인수로 예상하고 id, done, text속성을 자동으로 추출*/
+function TodoItem({ id, done, description, onDelete }) { /*객체 구조 분해 = 개체를 인수로 예상하고 id, done, text속성을 자동으로 추출*/
+   const handleDeleteClick = () => {
+      const confirmDelete = window.confirm("할 일을 삭제하시겠습니까?");
+      if (confirmDelete) {
+         onDelete(id);
+      }
+   };
+
    return (
       <TodoItemBlock>
-      <CheckBox done={done}>{done && <MdDone />}</CheckBox>
-      <Text done={done}>{description}</Text>
-      <Remove>
-        <MdDelete />
-      </Remove>
+         <CheckBox done={done}>{done && <MdDone />}</CheckBox>
+         <Text done={done}>{description}</Text>
+         <Remove onClick={handleDeleteClick}>
+            <MdDelete />
+         </Remove>
     </TodoItemBlock>
    );
 

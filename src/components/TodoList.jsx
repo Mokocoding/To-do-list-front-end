@@ -26,10 +26,10 @@ function postCreate(description) {
       body : JSON.stringify(createData),
    };
 
-   fetch(`${baseURL}api/posts`, option)
+   return fetch(`${baseURL}api/posts`, option)
       .then((res) => {
          if (!res.ok) {
-            throw new Error("할 일을 추가하는 데 실패했습니다.");
+            throw new Error("할 일을 추가하는데 실패했습니다.");
          }
          return res.json();
       })
@@ -38,6 +38,28 @@ function postCreate(description) {
       })
       .catch((err) => console.log(err));
 
+}
+
+function deleteTodo(id) {
+   const option = {
+      method: "DELETE",
+      headers: {
+         "Content-type": "application/json; charset=utf-8",
+      }
+   };
+
+   return fetch(`${baseURL}api/posts/${id}`, option)
+      .then((res) => {
+         if (!res.ok) {
+            throw new Error("할 일을 삭제하는데 실패했습니다.");
+         }
+         return res.json();
+      })
+      .then((data) => {
+         console.log(data);
+         return id;
+      })
+      .catch((err) => console.log(err));
 }
 
 function TodoList() {
@@ -50,6 +72,12 @@ function TodoList() {
          .catch((error) => console.error("연결 중 오류가 발생하였습니다."));
    }, []);
 
+   const deleteTask = (id) => {
+      deleteTodo(id).then((deletedId) => {
+         setTodos(todos.filter(todo => todo.id !== deletedId));
+      });
+   }
+
    const addNewTask = (description) => {
       postCreate(description);
    }
@@ -59,9 +87,14 @@ function TodoList() {
    return (
    <TodoListBlock>
       {todos.map((todo) => (
-         <TodoItem key={todo.id} description={todo.description} done={todo.done} />
+         <TodoItem 
+            key={todo.id}
+            id={todo.id} 
+            description={todo.description} 
+            done={todo.done} 
+            onDelete={deleteTask} 
+         />
       ))}
-      <TodoAdd onAddPost={addNewTask} />
    </TodoListBlock>
    );
 }

@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
 import { func } from 'prop-types';
+import TodoHead from './TodoHead';
+import TodoLeft from './TodoLeft';
 
 const CircleButton = styled.button`
    background: #c5cdcb; //일반 배경색
@@ -89,7 +91,7 @@ const AddButton = styled.button`
 `;
 
 
-function TodoAdd( {onAddPost} ) {
+function TodoAdd( {onAddPost, todos} ) {
    const [open, setOpen] = useState(false); // 초기값은 할 일을 수행하지 않았을 때.
    const [task, setTask] = useState("");
    // console.log(onAddPost);
@@ -113,7 +115,9 @@ function TodoAdd( {onAddPost} ) {
          setTask("");
       }
    }
-   
+
+   const TasksLeft = todos ? todos.filter((todo) => !todo.done).length : 0;
+
    return (
       <>
          {open && (
@@ -131,6 +135,8 @@ function TodoAdd( {onAddPost} ) {
          <CircleButton onClick={onToggle} open={open}>
             <MdAdd />
          </CircleButton>
+         {/* <TodoLeft tasksLeft={TasksLeft} /> */}
+         
       </>
    )
 }
