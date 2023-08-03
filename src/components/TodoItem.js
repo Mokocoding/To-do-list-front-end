@@ -46,7 +46,7 @@ const CheckBox = styled.div`
 
 const Text = styled.div`
    flex: 1;
-   front-size:21px;
+   font-size:21px;
    color: #495057;
    border-radius: 16px;
    border: 1px solid #ced4da;
@@ -63,11 +63,11 @@ const Text = styled.div`
 `;
 
 
-function TodoItem({ id, done, text}) { /*객체 구조 분해 = 개체를 인수로 예상하고 id, done, text속성을 자동으로 추출*/
+function TodoItem({ id, done, description}) { /*객체 구조 분해 = 개체를 인수로 예상하고 id, done, text속성을 자동으로 추출*/
    return (
       <TodoItemBlock>
       <CheckBox done={done}>{done && <MdDone />}</CheckBox>
-      <Text done={done}>{text}</Text>
+      <Text done={done}>{description}</Text>
       <Remove>
         <MdDelete />
       </Remove>

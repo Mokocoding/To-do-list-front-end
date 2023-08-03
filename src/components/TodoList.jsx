@@ -11,8 +11,8 @@ const TodoListBlock = styled.div`
 function TodoList() {
    return (
    <TodoListBlock>
-      <TodoItem text="오늘의 할일" done={true} />
-      <TodoItem text="오늘의 할일" done={false} />
+      <TodoItem description="오늘의 할일" done={true} />
+      <TodoItem description="오늘의 할일" done={false} />
    </TodoListBlock>
    )
 }

@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import TodoListBox from "./components/TodoListBox";
 import TodoHead from "./components/TodoHead";
 import TodoList from "./components/TodoList";
-import { Link } from "react-router-dom";
+import TodoAdd from "./components/TodoAdd";
 
 const GlobalStyle = createGlobalStyle`
    body {
@@ -19,6 +19,7 @@ function Post() {
          <TodoListBox>
             <TodoHead />
             <TodoList />
+            <TodoAdd />
          </TodoListBox>
          <Link to ="/">메인페이지이동</Link> 
       </>
