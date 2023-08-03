@@ -5,7 +5,7 @@ export default function MainHead(){
    
 
     return (
-        <Head>TodoList</Head>
+        <Head>투두리스트</Head>
     )
 
 }

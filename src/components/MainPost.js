@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MainPostContainer, PostList, PostItem, PostTitle, PostDate} from '../styled/MainStyle';
+import Modal from './Modal';
+
 
 function MainPost() {
   const [posts, setPosts] = useState([]);
@@ -40,16 +42,21 @@ function MainPost() {
   if (error) return <div>에러 발생</div>;
   if (posts.length === 0) return <div>데이터가 없습니다.</div>;
 
+
+  const sortedPosts = [...posts].sort((a, b) => new Date(b.target_date) - new Date(a.target_date));//내림차순정렬
+
   return (
     <MainPostContainer>
       <h3>TodoList</h3>
       <PostList>
-        {posts.map((post) => (
-          <PostItem key={post.id}>
-            <PostTitle>Todo</PostTitle>
-            <PostDate>작성일자: {post.target_date.slice(0,10)}</PostDate>
-            <PostDate>내용: {post.description}</PostDate>
-          </PostItem>
+        
+          {sortedPosts.map((post) => (
+            <PostItem key={post.id}>
+              <PostTitle>Todo</PostTitle>
+              <PostDate>작성일자: {post.target_date.slice(0,10)}</PostDate>
+              <PostDate>내용: {post.description}</PostDate>
+              <Modal></Modal>
+            </PostItem>
         ))}
       </PostList>
     </MainPostContainer>

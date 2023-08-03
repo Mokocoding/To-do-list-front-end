@@ -42,9 +42,9 @@ export const Box = styled.div`
   padding: 1rem;
   height: 100vh;
   height-top: 1rem;
-  height-bottom: 1rem;
-  border-radius: 15px;
-  box-shadow: 0px 0px 20px;
+border-radius: 15px;
+  box-shadow: 0px 0px 20px;  height-bottom: 1rem;
+  
   text-align: center;
   font-size: 1rem;
   overflow: auto;
@@ -88,3 +88,8 @@ export const StyledLink = styled(Link)`
   justify-content: space-around
  
 `;
+
+
+
+//Modal
+
