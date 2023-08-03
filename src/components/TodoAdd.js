@@ -3,7 +3,7 @@
 // 할 일을 모두 적었으면 Enter 키를 눌러서 TodoListBox태그 내에 TodoList가 추가된다.
 import React, { useState } from 'react';
 import styled, { css } from "styled-components";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdClose } from "react-icons/md";
 import { func } from 'prop-types';
 import TodoHead from './TodoHead';
 import TodoLeft from './TodoLeft';
@@ -91,12 +91,15 @@ const AddButton = styled.button`
 `;
 
 
-function TodoAdd( {onAddPost, todos} ) {
+function TodoAdd() {
    const [open, setOpen] = useState(false); // 초기값은 할 일을 수행하지 않았을 때.
    const [task, setTask] = useState("");
-   // console.log(onAddPost);
+
    const onToggle= () =>  {
-      setOpen(!open); // open의 상태를 정의하여 Toggle 기능의 상태를 변화시킴.
+      setOpen(!open);
+      if (!open) {
+         setTask("");
+      } // open의 상태를 정의하여 Toggle 기능의 상태를 변화시킴.
       // open이 ture면 !open은 false이므로 버튼을 클릭할 때마다 
       // 인풋(할 일을 적는 공간)탭을 팝업시키거나 내릴 수 있게 한다.
       // !open을 그냥 open이라 했을 때는 기능이 잘 안됐다. 이유가 뭘까
@@ -111,12 +114,12 @@ function TodoAdd( {onAddPost, todos} ) {
       if (task.trim() !== "") { // 요 부분은 구글링해서 엔터를 눌렀을때 게시글 생성
             // 하는 방법을 찾아보았을 때 나온 코드를 참고하였는데, trim() 메서드는
             // 문자열에서만 사용가능하며, 작성한 text에 좌우 공백을 지워주는 역할을 한다고 합니다.
-         onAddPost(task);
+         console.log("할 일 추가:", task);
          setTask("");
       }
    }
 
-   const TasksLeft = todos ? todos.filter((todo) => !todo.done).length : 0;
+   // const TasksLeft = todos ? todos.filter((todo) => !todo.done).length : 0;
 
    return (
       <>
@@ -133,7 +136,7 @@ function TodoAdd( {onAddPost, todos} ) {
             </InsertFormPositioner>
          )}
          <CircleButton onClick={onToggle} open={open}>
-            <MdAdd />
+            {open ? <MdClose /> : <MdAdd />}
          </CircleButton>
          {/* <TodoLeft tasksLeft={TasksLeft} /> */}
          

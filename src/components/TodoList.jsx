@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import TodoItem from "./TodoItem";
 import TodoAdd from "./TodoAdd";
+import TodoListBox from "./TodoListBox";
 // import { response } from "express";
 
 const baseURL = 'http://3.35.134.247:3000/';
@@ -12,56 +13,6 @@ const TodoListBlock = styled.div`
    padding-bottom: 48px;
 `;
 
-function postCreate(description) {
-   const createData = {
-      description : description,
-      target_date : "",
-   };
-   
-   const option = {
-      method : "POST",
-      headers : {
-         "Content-type": "application/json; charset=utf-8",
-      },
-      body : JSON.stringify(createData),
-   };
-
-   return fetch(`${baseURL}api/posts`, option)
-      .then((res) => {
-         if (!res.ok) {
-            throw new Error("할 일을 추가하는데 실패했습니다.");
-         }
-         return res.json();
-      })
-      .then((data) => {
-         console.log(data);
-      })
-      .catch((err) => console.log(err));
-
-}
-
-function deleteTodo(id) {
-   const option = {
-      method: "DELETE",
-      headers: {
-         "Content-type": "application/json; charset=utf-8",
-      }
-   };
-
-   return fetch(`${baseURL}api/posts/${id}`, option)
-      .then((res) => {
-         if (!res.ok) {
-            throw new Error("할 일을 삭제하는데 실패했습니다.");
-         }
-         return res.json();
-      })
-      .then((data) => {
-         console.log(data);
-         return id;
-      })
-      .catch((err) => console.log(err));
-}
-
 function TodoList() {
    const [todos, setTodos] = useState([]);
 
@@ -69,34 +20,73 @@ function TodoList() {
       fetch(`${baseURL}api/posts`)
          .then((res) => res.json())
          .then((data) => setTodos(data))
-         .catch((error) => console.error("연결 중 오류가 발생하였습니다."));
+         .catch((error) => console.error("연결 중 오류가 발생하였습니다."))
    }, []);
 
    const deleteTask = (id) => {
-      deleteTodo(id).then((deletedId) => {
-         setTodos(todos.filter(todo => todo.id !== deletedId));
-      });
-   }
+      const option = {
+         method: "DELETE",
+         headers: {
+            "Content-type": "application/json; charset=utf-8",
+         }
+      };
 
-   const addNewTask = (description) => {
-      postCreate(description);
-   }
+      fetch(`${baseURL}api/posts/${id}`, option)
+         .then((res) => {
+            if (!res.ok) {
+               throw new Error("할 일을 삭제하는데 실패했습니다.");
+            }
+            return res.json();
+         })
+         .then((data) => {
+            console.log(data);
+            setTodos(todos.filter(todo => todo.id !== id));
+         })
+         .catch((err) => console.log(err));
+   };
 
-   console.log(addNewTask);
+   const onAddPost = (description) => {
+      const createData = {
+         description: description,
+         target_date: "",
+      };
+
+      const option = {
+         method: "POST",
+         headers: {
+            "Content-type": "application/json; charset=utf-8",
+         },
+         body: JSON.stringify(createData),
+      };
+
+      fetch(`${baseURL}api/posts`, option)
+         .then((res) => {
+            if (!res.ok) {
+               throw new Error("할 일을 추가하는데 실패했습니다.");
+            }
+            return res.json();
+         })
+         .then((data) => {
+            console.log(data);
+            setTodos([...todos, data]);
+         })
+         .catch((err) => console.log(err));
+   };
 
    return (
-   <TodoListBlock>
-      {todos.map((todo) => (
-         <TodoItem 
-            key={todo.id}
-            id={todo.id} 
-            description={todo.description} 
-            done={todo.done} 
-            onDelete={deleteTask} 
-         />
-      ))}
-   </TodoListBlock>
-   );
+      <TodoListBlock>
+         <TodoAdd onAddPost={onAddPost} />
+         {todos.map((todo) => (
+            <TodoItem 
+               key={todo.id}
+               id={todo.id} 
+               description={todo.description} 
+               done={todo.done} 
+               onDelete={deleteTask} 
+            />
+         ))}
+      </TodoListBlock>
+      );
 }
 
 export default TodoList;

@@ -20,7 +20,7 @@ const TodoHeadBlock = styled.div`
    }
 `
 
-function TodoHead({ TasksLeft }) {
+function TodoHead() {
    let today = new Date();
    
    const options = {
@@ -37,7 +37,7 @@ function TodoHead({ TasksLeft }) {
       <TodoHeadBlock>
          <div className='date'>{dateFormatted}</div>
          <div className='day'>{today.toLocaleDateString('ko-KR', {weekday : 'long'})}</div>
-         <TodoLeft/>
+         <TodoLeft TodoLeft={TodoLeft}/>
       </TodoHeadBlock>
    );
 }

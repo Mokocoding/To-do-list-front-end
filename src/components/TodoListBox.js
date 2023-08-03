@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const TodoListBoard = styled.div`
    width: 500px;
    height: 700px;
+   overflow: scroll;
 
    position: static;
    background: white;
