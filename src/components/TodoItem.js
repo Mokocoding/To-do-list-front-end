@@ -1,8 +1,8 @@
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
 import styled, {css} from "styled-components";
 import {MdDelete, MdDone} from 'react-icons/md';
-import {BiPencil} from 'react-icons/bi';
+// import {BiPencil} from 'react-icons/bi';
 
 const Remove = styled.div`
    display: flex;

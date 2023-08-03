@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import TodoListBox from "./components/TodoListBox";
 import TodoHead from "./components/TodoHead";
@@ -21,6 +21,7 @@ function Post() {
             <TodoList />
             <TodoAdd />
          </TodoListBox>
+         <Link to ="/">메인페이지이동</Link> 
       </>
    );
 }
