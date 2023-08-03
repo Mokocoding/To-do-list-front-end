@@ -34,7 +34,13 @@ const CheckBox = styled.div`
    width: 32px;
    height: 32px;
    display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 24px;
+   border-radius: 16px;
    cursor: pointer;
+   border: 1px solid #ced4da;
+   color: #ced4da;
    ${props =>
      props.done &&
      css`
@@ -46,24 +52,29 @@ const CheckBox = styled.div`
 
 const Text = styled.div`
    flex: 1;
-   font-size:21px;
-   color: #495057;
-   border-radius: 16px;
-   border: 1px solid #ced4da;
+   color:
+   ${props => (
+      props.done ? "#ced4da" : "#495057"
+      )
+   };
+   border: none;
+   /* border: 1px solid #ced4da; */
    font-size: 24px;
    display: flex;
    align-items: center;
    justify-content: center;
    margin-right: 20px;
-   ${props =>
-      props.done&&
-      css`
-      color:ced4da;
-   `}
 `;
 
 
 function TodoItem({ id, done, description, onDelete }) { /*객체 구조 분해 = 개체를 인수로 예상하고 id, done, text속성을 자동으로 추출*/
+   
+   const [checked, setChecked] = useState(done); // 초기값은 불리언 값 done
+
+   const checkBoxClick = () => {
+      setChecked(!checked);
+   };
+
    const handleDeleteClick = () => {
       const confirmDelete = window.confirm("할 일을 삭제하시겠습니까?");
       if (confirmDelete) {
@@ -73,8 +84,10 @@ function TodoItem({ id, done, description, onDelete }) { /*객체 구조 분해 
 
    return (
       <TodoItemBlock>
-         <CheckBox done={done}>{done && <MdDone />}</CheckBox>
-         <Text done={done}>{description}</Text>
+         <CheckBox done={checked} onClick={checkBoxClick}>
+            {checked && <MdDone />}
+         </CheckBox>
+         <Text done={checked}>{description}</Text>
          <Remove onClick={handleDeleteClick}>
             <MdDelete />
          </Remove>

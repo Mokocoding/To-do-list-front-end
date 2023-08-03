@@ -1,9 +1,10 @@
 //버튼의 기능은 눌렀을 때 할 일을 추가하는 인풋 박스가 나오고,
 // 버튼은 색이 바뀌면서 인풋 창을 닫을 수 있게 한다. (+아이콘으로 했으면 x로 바뀌는 것 추가)
 // 할 일을 모두 적었으면 Enter 키를 눌러서 TodoListBox태그 내에 TodoList가 추가된다.
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled, { css } from "styled-components";
 import { MdAdd, MdClose } from "react-icons/md";
+import { TodoContext } from './TodoContext';
 import { func } from 'prop-types';
 import TodoHead from './TodoHead';
 import TodoLeft from './TodoLeft';
@@ -34,7 +35,7 @@ const CircleButton = styled.button`
    border: none;
    outline: none; // 테두리 라인 없애기
 
-   transition: 0.1ms;
+   transition: 0.1s;
    ${props =>
       props.open &&
       css`
@@ -45,7 +46,7 @@ const CircleButton = styled.button`
          &:active {
             background: #fa5252;
          }
-         transform: translate(-50%, 50%) rotate(45deg); 
+         transform: translate(-50%, 50%) rotate(90deg); 
          // 버튼 가운데 정렬, 45도 회전해서 +아이콘이 x아이콘으로 되게 변경
       `
    }
@@ -66,7 +67,6 @@ const InsertForm = styled.form`
    padding-right: 32px;
    padding-bottom: 72px;
 
-   border-radius: 16px;
    border-top: 1px solid #e9ecef;
 `;
 
@@ -94,6 +94,7 @@ const AddButton = styled.button`
 function TodoAdd() {
    const [open, setOpen] = useState(false); // 초기값은 할 일을 수행하지 않았을 때.
    const [task, setTask] = useState("");
+   // const { todos, addNewTask } = useContext(TodoContext);
 
    const onToggle= () =>  {
       setOpen(!open);
@@ -138,8 +139,7 @@ function TodoAdd() {
          <CircleButton onClick={onToggle} open={open}>
             {open ? <MdClose /> : <MdAdd />}
          </CircleButton>
-         {/* <TodoLeft tasksLeft={TasksLeft} /> */}
-         
+               
       </>
    )
 }

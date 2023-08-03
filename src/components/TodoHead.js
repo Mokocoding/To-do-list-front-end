@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TodoAdd from './TodoAdd';
 import TodoList from './TodoList';
 import TodoLeft from './TodoLeft';
+import { TodoContext } from './TodoContext';
 
 const TodoHeadBlock = styled.div`
    padding-top: 50px;
@@ -19,7 +20,6 @@ const TodoHeadBlock = styled.div`
 
    }
 `
-
 function TodoHead() {
    let today = new Date();
    
@@ -37,7 +37,7 @@ function TodoHead() {
       <TodoHeadBlock>
          <div className='date'>{dateFormatted}</div>
          <div className='day'>{today.toLocaleDateString('ko-KR', {weekday : 'long'})}</div>
-         <TodoLeft TodoLeft={TodoLeft}/>
+         {/* <TodoLeft taskLeft={taskLeft} /> */}
       </TodoHeadBlock>
    );
 }

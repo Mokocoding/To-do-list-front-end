@@ -4,6 +4,7 @@ import TodoListBox from "./components/TodoListBox";
 import TodoHead from "./components/TodoHead";
 import TodoList from "./components/TodoList";
 import TodoAdd from "./components/TodoAdd";
+import { TodoContextProvider } from "./components/TodoContext";
 
 const GlobalStyle = createGlobalStyle`
    body {
@@ -18,7 +19,9 @@ function Post() {
          <div>TodoList 추가 페이지</div>
          <TodoListBox>
             <TodoHead />
-            <TodoList />
+               <TodoContextProvider>
+                  <TodoList />
+               </TodoContextProvider>
             <TodoAdd />
          </TodoListBox>
       </>
