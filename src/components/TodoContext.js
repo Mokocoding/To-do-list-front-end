@@ -56,9 +56,43 @@ function TodoContextProvider({ children }) {
          })
          .catch((err) => console.log(err));
    };
+
+   const handleEditSave = (id, editedText) => {
+      if (editedText.trim() !== "") {
+         const updateData = {
+            description: editedText,
+            target_date: "",
+         };
+
+         const option = {
+            method: "PATCH",
+            headers: {
+               "Content-type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(updateData),
+         };
+
+         fetch(`${baseURL}api/posts/${id}`, option)
+         .then((res) => {
+            if (!res.ok) {
+               throw new Error("할 일을 수정하는데 실패했습니다.");
+            }
+            return res.json();
+         })
+         .then((data) => {
+            console.log(data);
+            setTodos((prevTodos) => 
+               prevTodos.map((todo) =>
+                  todo.id === id ? {...todo, description: editedText} : todo
+               )
+            );
+         })
+         .catch((err) => console.log(err));
+      }
+   }
    
    return (
-      <TodoContext.Provider value={{ todos, addNewTask, deleteTodo, setTodos }}>
+      <TodoContext.Provider value={{ todos, addNewTask, deleteTodo, setTodos, handleEditSave }}>
          {children}
       </TodoContext.Provider>
    );
