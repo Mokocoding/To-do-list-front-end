@@ -21,7 +21,7 @@ function Post() {
             <TodoList />
             <TodoAdd />
          </TodoListBox>
-         <Link to ="/">메인페이지이동</Link> 
+         {/* <Link to ="/">메인페이지이동</Link>  */}
       </>
    );
 }

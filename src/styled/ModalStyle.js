@@ -21,7 +21,7 @@ export const CloseButton = styled.button``;
 
 export const InputField = styled.input`
    
-    padding: 4rem;
+    padding: 1rem;
     text-align: left;
     
 

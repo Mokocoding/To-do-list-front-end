@@ -88,6 +88,22 @@ export const StyledLink = styled(Link)`
   justify-content: space-around
  
 `;
+//Calendar(link)
+export const CalendarLink = styled(Link)`
+
+  display: flex;
+  background-color: white;
+  margin: 6vw;
+  height: 10vh;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px gray;
+  text-align: center;
+  text-Decoration: none;
+  flex-direction: column;
+  justify-content: space-around
+ 
+`;
+
 
 
 

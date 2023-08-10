@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
-import { func } from 'prop-types';
+// import { func } from 'prop-types';
 
 const CircleButton = styled.button`
    background: #c5cdcb; //일반 배경색

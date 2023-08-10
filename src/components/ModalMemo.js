@@ -1,33 +1,60 @@
-import ReactDOM from 'react-dom';
-import React, { useState } from 'react';
-import { ModalContainer, InputField,  SaveButton } from '../styled/ModalStyle';
+import React, { useState, useEffect } from "react";
+import { ModalContainer, CloseButton, InputField, SaveButton } from "../styled/ModalStyle";
 
+export default function ModalMemo({ open, onClose }) {
+  const [memoText, setMemoText] = useState('');
+  const [savedMemo, setSavedMemo] = useState('');
 
-export default function ModalMemo({ open, children, onClose }) {
-    const [memoText, setMemoText] = useState('');
-    
-    if (!open) return null;
+  useEffect(() => {
+    // 로컬 스토리지에서 메모 불러오기
+    const storedMemo = localStorage.getItem("memo");
+    setSavedMemo(storedMemo || '');
+  }, []);
 
-    const handleSave = () => {
-        
-        console.log('메모 내용:', memoText);
-        onClose();
-      };
-    
-      return ReactDOM.createPortal(
-        <>
-          <ModalContainer>
-            
-            <InputField
-              type='text'
-              value={memoText}
-              onChange={(e) => setMemoText(e.target.value)}
-            />
-            <SaveButton onClick={handleSave}>저장</SaveButton>
-            {/* <CloseButton onClick={onClose}>닫기</CloseButton> */}
-            <div>{children}</div>
-          </ModalContainer>
-        </>,
-        document.getElementById('portal')
-      );
+  const handleSave = async () => {
+    if (memoText.trim() === '') {
+      return; // 메모 내용이 없으면 저장하지 않음
     }
+
+    try {
+      // API를 통해 메모 저장
+      const MemoURL = 'http://3.35.134.247:3000/api/memos'; // API 엔드포인트
+      const response = await fetch(MemoURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          comment: memoText,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('메모 저장 실패');
+      }
+
+      setSavedMemo(memoText);
+      handleClose();
+    } catch (error) {
+      console.error('에러 발생:', error);
+    }
+  };
+
+  const handleClose = () => {
+    setMemoText('');
+    onClose();
+  };
+
+  return open ? (
+    <ModalContainer>
+      <InputField
+        value={memoText}
+        onChange={(e) => setMemoText(e.target.value)}
+        placeholder="메모를 입력하세요..."
+      />
+      <SaveButton onClick={handleSave}>저장</SaveButton>
+      <div>저장된 메모: {savedMemo}</div>
+      <CloseButton onClick={handleClose}>닫기</CloseButton>
+    </ModalContainer>
+  ) : null;
+}
