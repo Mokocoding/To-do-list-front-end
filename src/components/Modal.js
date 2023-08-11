@@ -33,7 +33,7 @@ export default function Modal() {
   }, []);
 
   const handleMemoButtonClick = (memoId) => {
-    setSelectedMemoId(memoId);
+    setSelectedMemoId(memoId + 1);
     setIsOpen(true);
   };
 

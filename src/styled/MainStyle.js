@@ -89,7 +89,7 @@ export const StyledLink = styled(Link)`
  
 `;
 //Calendar(link)
-export const CalendarLink = styled(Link)`
+export const SearchLink = styled(Link)`
 
   display: flex;
   background-color: white;
@@ -106,6 +106,4 @@ export const CalendarLink = styled(Link)`
 
 
 
-
-//Modal
 

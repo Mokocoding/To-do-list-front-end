@@ -31,7 +31,11 @@ export default function ModalMemo({ open, onClose }) {
 
       if (!response.ok) {
         throw new Error('메모 저장 실패');
+      }else if(response.ok){
+        console.log('메모저장성공');
       }
+      
+      
 
       setSavedMemo(memoText);
       handleClose();
@@ -50,11 +54,13 @@ export default function ModalMemo({ open, onClose }) {
       <InputField
         value={memoText}
         onChange={(e) => setMemoText(e.target.value)}
-        placeholder="메모를 입력하세요..."
+        placeholder= {savedMemo}
+        
       />
       <SaveButton onClick={handleSave}>저장</SaveButton>
-      <div>저장된 메모: {savedMemo}</div>
       <CloseButton onClick={handleClose}>닫기</CloseButton>
+      
+      
     </ModalContainer>
   ) : null;
 }

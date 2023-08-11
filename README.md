@@ -12,4 +12,4 @@ main : 배포용 브랜치
 
 develop : 개발용 브랜치
 
-feature : 기능 브랜치 (ex : 이름/페이지 or 기능) donggun/header
+feature : 기능 브랜치 (ex : 이름/페이지 or 기능) donggun/headerm
