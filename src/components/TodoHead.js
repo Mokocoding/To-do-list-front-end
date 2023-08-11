@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import TodoAdd from './TodoAdd';
+import TodoList from './TodoList';
+import TodoLeft from './TodoLeft';
+import { TodoContext } from './TodoContext';
 
 const TodoHeadBlock = styled.div`
    padding-top: 50px;
@@ -15,11 +19,7 @@ const TodoHeadBlock = styled.div`
    .day {
 
    }
-   .tasks-left {
-      color: #dc143c;
-   }
 `
-
 function TodoHead() {
    let today = new Date();
    
@@ -37,7 +37,7 @@ function TodoHead() {
       <TodoHeadBlock>
          <div className='date'>{dateFormatted}</div>
          <div className='day'>{today.toLocaleDateString('ko-KR', {weekday : 'long'})}</div>
-         <div className='tasks-left'>할 일 ?개 남음</div>
+         {/* <TodoLeft taskLeft={taskLeft} /> */}
       </TodoHeadBlock>
    );
 }
